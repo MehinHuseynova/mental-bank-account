@@ -17,7 +17,7 @@ Measured from the onboarding PNGs in `Onboarding/`. Images are 2x exports of a 3
 | `illustrationBg` | `#E8EEE9` | circle behind the illustration |
 | `dayEmpty` | `#E9EDEA` | future days in the week strip |
 | `dayMissed` | `#A9B6B1` | dashed outline of a missed day |
-| `gold` | `#E0A630` | coins in the illustration |
+| `coin` | `#E0A630` | coins in the illustration |
 | `effort` | bg `#E2EFEA` · fg `#2E6B5E` | E tile |
 | `success` | bg `#F6EDD8` · fg `#8A5A00` | S tile |
 | `progress` | bg `#E3ECF5` · fg `#2F5F8A` | P tile, moon tile |

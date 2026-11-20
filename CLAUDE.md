@@ -7,7 +7,7 @@ An iPhone app (Expo / React Native) that helps people build confidence by writin
 
 ## The idea
 
-Based on the "mental bank account" concept from *The Confident Mind* by Dr. Nate Zinsser: confidence grows when you regularly "deposit" positive memories. Every evening the user writes their ESP for the day:
+Based on the "mental bank account" concept from _The Confident Mind_ by Dr. Nate Zinsser: confidence grows when you regularly "deposit" positive memories. Every evening the user writes their ESP for the day:
 
 - **E – Effort:** something you put real effort into today
 - **S – Success:** something that went well today
