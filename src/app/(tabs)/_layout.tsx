@@ -12,17 +12,17 @@ export default function TabsLayout() {
   return (
     <NativeTabs tintColor={colors.primary} labelStyle={{ fontFamily: fonts.bold }}>
       <NativeTabs.Trigger name="index">
-        <NativeTabs.Trigger.Label>{entriesCopy.todayTab}</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>{entriesCopy.today}</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon sf="sun.max" />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="deposits">
-        <NativeTabs.Trigger.Label>{entriesCopy.depositsTab}</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>{entriesCopy.deposits}</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon sf="calendar" />
       </NativeTabs.Trigger>
 
       <NativeTabs.Trigger name="settings">
-        <NativeTabs.Trigger.Label>{settingsCopy.tab}</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Label>{settingsCopy.title}</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon sf="slider.horizontal.3" />
       </NativeTabs.Trigger>
     </NativeTabs>

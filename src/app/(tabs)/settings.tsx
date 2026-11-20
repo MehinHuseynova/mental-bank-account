@@ -7,7 +7,7 @@ export default function SettingsScreen() {
   return (
     <Screen>
       <AppText variant="title">{settingsCopy.title}</AppText>
-      <AppText>Placeholder: built in a later ticket.</AppText>
+      <AppText>{settingsCopy.placeholder}</AppText>
     </Screen>
   );
 }

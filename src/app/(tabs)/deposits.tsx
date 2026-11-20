@@ -9,8 +9,8 @@ import { entriesCopy } from '@/features/entries/copy';
 export default function DepositsScreen() {
   return (
     <Screen>
-      <AppText variant="title">{entriesCopy.depositsTitle}</AppText>
-      <AppText>Placeholder: built in a later ticket.</AppText>
+      <AppText variant="title">{entriesCopy.deposits}</AppText>
+      <AppText>{entriesCopy.placeholder}</AppText>
       <Link href="/boost" asChild>
         <TextButton label={entriesCopy.boostButton} />
       </Link>

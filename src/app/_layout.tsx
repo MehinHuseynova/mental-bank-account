@@ -8,6 +8,12 @@ import { useEffect } from 'react';
 import { OnboardingProvider, useOnboarding } from '@/features/onboarding/onboarding-provider';
 import { colors, fonts } from '@/theme';
 
+/**
+ * Anchor: on a cold-start deep link (e.g. straight to /deposit or /boost), Expo Router
+ * puts (tabs) underneath, so Close / Back always has a screen to return to.
+ */
+export const unstable_settings = { anchor: '(tabs)' };
+
 // Keep the splash screen visible until the fonts are loaded (called once, at module level).
 SplashScreen.preventAutoHideAsync();
 
@@ -71,7 +77,8 @@ function RootStack() {
             headerShadowVisible: false,
             headerStyle: { backgroundColor: colors.background },
             headerTintColor: colors.textPrimary,
-            headerBackTitleStyle: { fontFamily: fonts.bold },
+            // Chevron only: otherwise iOS labels it with the previous route's name, "(tabs)".
+            headerBackButtonDisplayMode: 'minimal',
           }}
         />
       </Stack.Protected>

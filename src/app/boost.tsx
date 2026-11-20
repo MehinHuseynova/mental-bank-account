@@ -8,7 +8,7 @@ export default function BoostScreen() {
     // The native header already covers the top safe area.
     <Screen edges={['left', 'right']}>
       <AppText variant="title">{entriesCopy.boostButton}</AppText>
-      <AppText>Placeholder: built in a later ticket.</AppText>
+      <AppText>{entriesCopy.placeholder}</AppText>
     </Screen>
   );
 }

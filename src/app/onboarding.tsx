@@ -1,20 +1,18 @@
 import { AppText } from '@/components/ui/app-text';
 import { Screen } from '@/components/ui/screen';
 import { TextButton } from '@/components/ui/text-button';
+import { onboardingCopy } from '@/features/onboarding/copy';
 import { useOnboarding } from '@/features/onboarding/onboarding-provider';
 
-/**
- * Placeholder until the onboarding ticket builds the 4 pages. Text stays inline
- * because this whole screen gets replaced.
- */
+/** Placeholder until the onboarding ticket builds the 4 pages. */
 export default function OnboardingScreen() {
   const { complete } = useOnboarding();
 
   return (
     <Screen>
-      <AppText variant="title">Onboarding</AppText>
-      <AppText>Placeholder: the 4 onboarding pages come in a later ticket.</AppText>
-      <TextButton label="Finish" onPress={complete} />
+      <AppText variant="title">{onboardingCopy.placeholderTitle}</AppText>
+      <AppText>{onboardingCopy.placeholder}</AppText>
+      <TextButton label={onboardingCopy.placeholderFinish} onPress={complete} />
     </Screen>
   );
 }

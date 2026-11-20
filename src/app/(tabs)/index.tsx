@@ -5,12 +5,12 @@ import { Screen } from '@/components/ui/screen';
 import { TextButton } from '@/components/ui/text-button';
 import { entriesCopy } from '@/features/entries/copy';
 
-/** Today. Placeholder until the Today ticket (placeholder text stays inline). */
+/** Today. Placeholder until the Today ticket. */
 export default function TodayScreen() {
   return (
     <Screen>
-      <AppText variant="title">{entriesCopy.todayTab}</AppText>
-      <AppText>Placeholder: built in a later ticket.</AppText>
+      <AppText variant="title">{entriesCopy.today}</AppText>
+      <AppText>{entriesCopy.placeholder}</AppText>
       <Link href="/deposit" asChild>
         <TextButton label={entriesCopy.makeDeposit} />
       </Link>

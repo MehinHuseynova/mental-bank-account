@@ -10,7 +10,7 @@ export default function DepositScreen() {
   return (
     <Screen>
       <AppText variant="title">{entriesCopy.depositTitle}</AppText>
-      <AppText>Placeholder: built in a later ticket.</AppText>
+      <AppText>{entriesCopy.placeholder}</AppText>
       <TextButton label={entriesCopy.close} onPress={() => router.back()} />
     </Screen>
   );
