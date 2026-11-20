@@ -12,7 +12,8 @@ src/
 ├── features/
 │   ├── onboarding/       # Onboarding pages, pager, copy
 │   ├── entries/          # ESP entries: EspCard, WeekStrip, DayCircle, hooks, copy
-│   └── reminder/         # TimePicker, notification scheduling, hooks, copy
+│   ├── reminder/         # TimePicker, notification scheduling, hooks, copy
+│   └── settings/         # Settings screen pieces, copy
 ├── theme/                # colors, typography, spacing, radii (single source of truth)
 ├── lib/                  # Framework-free helpers: dates, storage
 └── assets/illustrations/ # SVG illustrations as React components
@@ -28,14 +29,16 @@ src/app/
 ├── _layout.tsx            # Root: loads fonts, keeps splash until ready, decides onboarding vs. app
 ├── onboarding.tsx         # 4-page onboarding pager (no header, outside tabs)
 ├── (tabs)/
-│   ├── _layout.tsx        # Tab bar: Today, History
+│   ├── _layout.tsx        # Native tab bar (NativeTabs, Liquid Glass): Today, Deposits, Settings
 │   ├── index.tsx          # Today
-│   └── history.tsx        # History
-├── entry/[date].tsx       # Read one past day (date = YYYY-MM-DD), read-only
-└── settings.tsx           # Opened from Today (not a tab): reminder time, credits
+│   ├── deposits.tsx       # Calendar + past deposits, shown inline (read-only)
+│   └── settings.tsx       # Reminder time, Lock Screen option, about, credits
+├── deposit.tsx            # Today's deposit form (full-screen modal, opened from Today)
+└── boost.tsx              # "I need a boost": random past deposits (pushed, back button)
 ```
 
-- Onboarding gate: root layout reads "onboarding completed" from storage; use Expo Router's recommended pattern for this (check SDK 58 docs, e.g. protected routes) instead of redirect hacks.
+- Onboarding gate: `Stack.Protected` in the root layout, driven by `onboardingCompleted` (from `OnboardingProvider` in `features/onboarding/`).
+- Design changes (Nov 2026, `design/Daily-use/`): History became the **Deposits** tab and shows each day inline, so there is no `entry/[date]` detail screen for now. Settings became a tab.
 - Tapping the reminder notification opens Today.
 
 ## 3. Theme

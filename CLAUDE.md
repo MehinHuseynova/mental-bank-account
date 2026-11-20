@@ -20,9 +20,13 @@ Credit the book in the onboarding, but the app has its own name and branding. Do
 ## MVP scope
 
 1. **Onboarding (4 pages):** balance concept → what E/S/P means → "every day counts once" → pick the evening reminder time. Designs in `design/Onboarding/`. Match them closely.
-2. **Today:** three inputs (E, S, P) and a save button. One entry per day.
-3. **History:** past entries, newest first; tap to read a day.
-4. **Daily reminder:** a local notification at a time the user picks.
+2. **Today:** summary of recent deposits and a button that opens **Today's deposit** (one text each for E, S, P, then save). One entry per day.
+3. **Deposits:** month calendar plus past deposits, newest first, shown inline.
+4. **I need a boost:** shows random past deposits, opened from Today and Deposits.
+5. **Settings:** reminder time, keep-on-Lock-Screen option, about, credits.
+6. **Daily reminder:** a local notification at a time the user picks.
+
+Designs for 2–6 are in `design/Daily-use/`. **Decided against** (even though some designs show them): "+ Add another" (several items per E/S/P) and Face ID lock.
 
 ## Product rules
 
@@ -33,7 +37,7 @@ Credit the book in the onboarding, but the app has its own name and branding. Do
 - Onboarding "Skip" (pages 1–3) jumps to the reminder page, not into the app.
 - Light mode only for now (the designs are light only).
 
-Later ideas (not MVP): streaks, "random past success" for hard days, export, German/English, App Store release.
+Later ideas (not MVP): streaks, export, German/English, App Store release.
 
 ## Tech decisions
 

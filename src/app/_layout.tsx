@@ -5,6 +5,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 
+import { OnboardingProvider, useOnboarding } from '@/features/onboarding/onboarding-provider';
 import { colors, fonts } from '@/theme';
 
 // Keep the splash screen visible until the fonts are loaded (called once, at module level).
@@ -23,7 +24,7 @@ export default function RootLayout() {
       console.warn('Fonts failed to load, falling back to the system font:', fontError);
     }
     if (fontsLoaded || fontError) {
-      SplashScreen.hideAsync();
+      SplashScreen.hide();
     }
   }, [fontsLoaded, fontError]);
 
@@ -33,14 +34,47 @@ export default function RootLayout() {
   }
 
   return (
-    <>
+    <OnboardingProvider>
       <StatusBar style="dark" />
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          contentStyle: { backgroundColor: colors.background },
-        }}
-      />
-    </>
+      <RootStack />
+    </OnboardingProvider>
+  );
+}
+
+/**
+ * Onboarding gate: Stack.Protected only registers its screens while `guard` is true.
+ * When the flag flips, Expo Router moves to the first screen that is allowed,
+ * so finishing onboarding needs no manual redirect.
+ */
+function RootStack() {
+  const { completed } = useOnboarding();
+
+  return (
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        contentStyle: { backgroundColor: colors.background },
+      }}
+    >
+      <Stack.Protected guard={!completed}>
+        <Stack.Screen name="onboarding" />
+      </Stack.Protected>
+
+      <Stack.Protected guard={completed}>
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="deposit" options={{ presentation: 'fullScreenModal' }} />
+        <Stack.Screen
+          name="boost"
+          options={{
+            headerShown: true,
+            title: '',
+            headerShadowVisible: false,
+            headerStyle: { backgroundColor: colors.background },
+            headerTintColor: colors.textPrimary,
+            headerBackTitleStyle: { fontFamily: fonts.bold },
+          }}
+        />
+      </Stack.Protected>
+    </Stack>
   );
 }
