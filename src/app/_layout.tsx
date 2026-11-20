@@ -5,19 +5,23 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 
-import { colors } from '@/theme';
+import { colors, fonts } from '@/theme';
 
 // Keep the splash screen visible until the fonts are loaded (called once, at module level).
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  // Register each font under the family name the theme uses, so the two can't drift apart.
   const [fontsLoaded, fontError] = useFonts({
-    Nunito_400Regular,
-    Nunito_700Bold,
-    Nunito_800ExtraBold,
+    [fonts.regular]: Nunito_400Regular,
+    [fonts.bold]: Nunito_700Bold,
+    [fonts.extraBold]: Nunito_800ExtraBold,
   });
 
   useEffect(() => {
+    if (fontError && __DEV__) {
+      console.warn('Fonts failed to load, falling back to the system font:', fontError);
+    }
     if (fontsLoaded || fontError) {
       SplashScreen.hideAsync();
     }

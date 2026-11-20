@@ -1,8 +1,8 @@
 import type { TextStyle } from 'react-native';
 
 /**
- * Nunito font families. The names must match the keys passed to `useFonts`
- * in src/app/_layout.tsx (they are the @expo-google-fonts export names).
+ * Nunito font families. src/app/_layout.tsx registers the fonts under these
+ * names (used as the `useFonts` keys), so this is the single source of truth.
  */
 export const fonts = {
   regular: 'Nunito_400Regular',

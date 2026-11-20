@@ -17,7 +17,7 @@ const light = {
 
   dotInactive: '#C5D0CB',
   illustrationBg: '#E8EEE9',
-  gold: '#E0A630',
+  coin: '#E0A630',
 
   dayEmpty: '#E9EDEA',
   dayMissed: '#A9B6B1',
