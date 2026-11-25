@@ -1,24 +1,26 @@
 import { Pressable, StyleSheet, type PressableProps } from 'react-native';
 
 import { AppText } from '@/components/ui/app-text';
-import { sizes } from '@/theme';
+import { sizes, type ColorToken } from '@/theme';
 
 type TextButtonProps = Omit<PressableProps, 'children'> & {
   label: string;
+  /** Text color. Defaults to the primary color. */
+  color?: ColorToken;
 };
 
 /**
- * A text-only button in the primary color. Works with `<Link asChild>`, which passes
+ * A text-only button. Works with `<Link asChild>`, which passes
  * its onPress through the spread props.
  */
-export function TextButton({ label, style, ...rest }: TextButtonProps) {
+export function TextButton({ label, color = 'primary', style, ...rest }: TextButtonProps) {
   return (
     <Pressable
       accessibilityRole="button"
       style={(state) => [styles.base, typeof style === 'function' ? style(state) : style]}
       {...rest}
     >
-      <AppText variant="button" color="primary">
+      <AppText variant="button" color={color}>
         {label}
       </AppText>
     </Pressable>

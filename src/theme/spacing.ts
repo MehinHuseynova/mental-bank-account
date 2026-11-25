@@ -20,6 +20,8 @@ export const spacing = {
 export const radii = {
   tile: 12,
   button: 16,
+  /** A box inside a card (e.g. the note under the week strip). */
+  inner: 16,
   card: 20,
   pill: 999,
 } as const;
@@ -33,6 +35,13 @@ export const sizes = {
   dot: 8,
   dotActiveWidth: 24,
   borderWidth: 1,
+  /** Dashed outline of a missed day. */
+  dashedBorderWidth: 2,
+  /** Ring around "today". */
+  ringWidth: 3,
+  /** Circle behind the onboarding illustration. */
+  illustration: 260,
+  icon: { small: 14, regular: 16, large: 20 },
 } as const;
 
 /** Screen-level layout values. */
