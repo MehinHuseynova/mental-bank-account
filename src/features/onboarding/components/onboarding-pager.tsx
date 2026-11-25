@@ -21,7 +21,7 @@ import { ReminderPage } from '@/features/onboarding/components/reminder-page';
 import { WelcomePage } from '@/features/onboarding/components/welcome-page';
 import { onboardingCopy as copy } from '@/features/onboarding/copy';
 import { useOnboarding } from '@/features/onboarding/onboarding-provider';
-import { DEFAULT_REMINDER_TIME } from '@/features/reminder/default-reminder-time';
+import { useReminderSettings } from '@/features/reminder/hooks/use-reminder-settings';
 import { colors, layout, sizes, spacing } from '@/theme';
 
 /**
@@ -34,9 +34,16 @@ export function OnboardingPager() {
   const { width } = useWindowDimensions();
   const scrollRef = useRef<ScrollViewInstance>(null);
   const [index, setIndex] = useState(0);
-  // Lives here (not in the page) because the footer buttons will need it: the
-  // notification ticket schedules the reminder at this time on "Turn on reminder".
-  const [reminderTime, setReminderTime] = useState(DEFAULT_REMINDER_TIME);
+  const reminder = useReminderSettings();
+  // Lives here (not in the page) because the footer buttons save it.
+  const [reminderTime, setReminderTime] = useState(reminder.time);
+
+  // Both buttons save the choice, then finish onboarding. "Not now" keeps the time
+  // too, so Settings can show it later. Scheduling comes in the notification ticket.
+  const finish = (reminderEnabled: boolean) => {
+    reminder.save({ enabled: reminderEnabled, time: reminderTime });
+    complete();
+  };
 
   const pages = [
     <WelcomePage key="welcome" />,
@@ -103,13 +110,12 @@ export function OnboardingPager() {
       </ScrollView>
 
       {isReminderPage ? (
-        // For now both buttons just finish onboarding; scheduling comes in the notification ticket.
         <View style={[styles.footer, styles.reminderFooter]}>
-          <PrimaryButton label={copy.reminder.turnOn} onPress={complete} />
+          <PrimaryButton label={copy.reminder.turnOn} onPress={() => finish(true)} />
           <TextButton
             label={copy.reminder.notNow}
             color="textMuted"
-            onPress={complete}
+            onPress={() => finish(false)}
             style={styles.notNow}
           />
         </View>

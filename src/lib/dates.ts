@@ -69,3 +69,22 @@ export function formatTime(time: TimeOfDay, uses24hourClock: boolean): string {
   const { hour, minute, meridiem } = getTimeParts(time, uses24hourClock);
   return meridiem ? `${hour}:${minute} ${meridiem}` : `${hour}:${minute}`;
 }
+
+/** 21:30 → "21:30". The storage format for a time of day: always 24h `HH:mm`. */
+export function toTimeKey(time: TimeOfDay): string {
+  return `${pad2(time.hour)}:${pad2(time.minute)}`;
+}
+
+/** "21:30" → 21:30. Returns null for anything that isn't a valid 24h `HH:mm` time. */
+export function parseTimeKey(key: string): TimeOfDay | null {
+  const match = /^(\d{2}):(\d{2})$/.exec(key);
+  if (!match) {
+    return null;
+  }
+  const hour = Number(match[1]);
+  const minute = Number(match[2]);
+  if (hour > 23 || minute > 59) {
+    return null;
+  }
+  return { hour, minute };
+}

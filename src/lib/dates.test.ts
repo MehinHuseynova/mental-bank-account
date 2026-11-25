@@ -1,9 +1,11 @@
 import {
   formatTime,
   getTimeParts,
+  parseTimeKey,
   stepHour,
   stepMinute,
   toggleMeridiem,
+  toTimeKey,
   type TimeOfDay,
 } from '@/lib/dates';
 
@@ -82,5 +84,33 @@ describe('formatTime', () => {
   ])('%o → "%s" / "%s"', (time, twelveHour, twentyFourHour) => {
     expect(formatTime(time, false)).toBe(twelveHour);
     expect(formatTime(time, true)).toBe(twentyFourHour);
+  });
+});
+
+describe('toTimeKey', () => {
+  test.each([
+    [t(21, 30), '21:30'],
+    [t(0, 0), '00:00'],
+    [t(9, 5), '09:05'],
+  ])('%o → "%s"', (time, key) => {
+    expect(toTimeKey(time)).toBe(key);
+  });
+});
+
+describe('parseTimeKey', () => {
+  test.each([
+    ['21:30', t(21, 30)],
+    ['00:00', t(0, 0)],
+    ['09:05', t(9, 5)],
+  ])('"%s" → %o', (key, time) => {
+    expect(parseTimeKey(key)).toEqual(time);
+  });
+
+  test.each(['', '9:30', '24:00', '12:60', '21:30:00', 'abc'])('"%s" → null', (key) => {
+    expect(parseTimeKey(key)).toBeNull();
+  });
+
+  test('round-trips with toTimeKey', () => {
+    expect(parseTimeKey(toTimeKey(t(23, 55)))).toEqual(t(23, 55));
   });
 });
