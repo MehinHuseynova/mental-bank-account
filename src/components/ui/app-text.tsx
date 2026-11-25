@@ -15,6 +15,7 @@ const defaultColor: Record<TextVariant, ColorToken> = {
   cardText: 'textMuted',
   button: 'onPrimary',
   timeDigits: 'textPrimary',
+  timeMeridiem: 'primary',
   tileLetter: 'textPrimary',
   label: 'textSecondary',
   caption: 'primary',

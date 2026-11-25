@@ -29,6 +29,8 @@ export const textStyles = {
   cardText: { fontFamily: fonts.regular, fontSize: 15, lineHeight: 21 },
   button: { fontFamily: fonts.bold, fontSize: 17, lineHeight: 22 },
   timeDigits: { fontFamily: fonts.extraBold, fontSize: 40, lineHeight: 48 },
+  /** "AM" / "PM" next to the time digits (~70% of the digit size in the design). */
+  timeMeridiem: { fontFamily: fonts.extraBold, fontSize: 28, lineHeight: 48 },
   /** The E / S / P letter inside a tile. */
   tileLetter: { fontFamily: fonts.extraBold, fontSize: 24, lineHeight: 28 },
   /** Short bold labels, e.g. weekday names. */
