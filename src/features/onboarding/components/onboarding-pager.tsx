@@ -17,26 +17,37 @@ import { PrimaryButton } from '@/components/ui/primary-button';
 import { TextButton } from '@/components/ui/text-button';
 import { EspPage } from '@/features/onboarding/components/esp-page';
 import { EveryDayPage } from '@/features/onboarding/components/every-day-page';
-import { ReminderPagePlaceholder } from '@/features/onboarding/components/reminder-page-placeholder';
+import { ReminderPage } from '@/features/onboarding/components/reminder-page';
 import { WelcomePage } from '@/features/onboarding/components/welcome-page';
 import { onboardingCopy as copy } from '@/features/onboarding/copy';
 import { useOnboarding } from '@/features/onboarding/onboarding-provider';
+import { DEFAULT_REMINDER_TIME } from '@/features/reminder/default-reminder-time';
 import { colors, layout, sizes, spacing } from '@/theme';
-
-const PAGES = [WelcomePage, EspPage, EveryDayPage, ReminderPagePlaceholder];
-const LAST_PAGE = PAGES.length - 1;
-/** "Skip" on pages 1–3 jumps here (the reminder page), not into the app. */
-const REMINDER_PAGE = LAST_PAGE;
 
 /**
  * The onboarding flow: a fixed header (back / Skip), the pages in a horizontal
- * paged ScrollView (swipe or buttons), and a fixed footer (dots + main button).
+ * paged ScrollView (swipe or buttons), and a fixed footer (dots + Next, or the
+ * reminder buttons on the last page).
  */
 export function OnboardingPager() {
   const { complete } = useOnboarding();
   const { width } = useWindowDimensions();
   const scrollRef = useRef<ScrollViewInstance>(null);
   const [index, setIndex] = useState(0);
+  // Lives here (not in the page) because the footer buttons will need it: the
+  // notification ticket schedules the reminder at this time on "Turn on reminder".
+  const [reminderTime, setReminderTime] = useState(DEFAULT_REMINDER_TIME);
+
+  const pages = [
+    <WelcomePage key="welcome" />,
+    <EspPage key="esp" />,
+    <EveryDayPage key="every-day" />,
+    <ReminderPage key="reminder" time={reminderTime} onChangeTime={setReminderTime} />,
+  ];
+  const pageCount = pages.length;
+  const lastPage = pageCount - 1;
+  /** "Skip" on pages 1–3 jumps here (the reminder page), not into the app. */
+  const reminderPage = lastPage;
 
   const goTo = (page: number) => {
     scrollRef.current?.scrollTo({ x: page * width, animated: true });
@@ -46,10 +57,10 @@ export function OnboardingPager() {
   // stay in sync. React skips the re-render when the index hasn't changed.
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const page = Math.round(event.nativeEvent.contentOffset.x / width);
-    setIndex(Math.min(Math.max(page, 0), LAST_PAGE));
+    setIndex(Math.min(Math.max(page, 0), lastPage));
   };
 
-  const isReminderPage = index === REMINDER_PAGE;
+  const isReminderPage = index === reminderPage;
 
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'bottom']}>
@@ -72,7 +83,7 @@ export function OnboardingPager() {
           <View style={styles.back} />
         )}
         {!isReminderPage && (
-          <TextButton label={copy.skip} color="textMuted" onPress={() => goTo(REMINDER_PAGE)} />
+          <TextButton label={copy.skip} color="textMuted" onPress={() => goTo(reminderPage)} />
         )}
       </View>
 
@@ -84,27 +95,34 @@ export function OnboardingPager() {
         onScroll={handleScroll}
         scrollEventThrottle={16}
       >
-        {PAGES.map((Page, i) => (
-          <View key={i} style={{ width }}>
-            <Page />
+        {pages.map((page) => (
+          <View key={page.key} style={{ width }}>
+            {page}
           </View>
         ))}
       </ScrollView>
 
-      <View style={styles.footer}>
-        {isReminderPage ? (
-          <PrimaryButton label={copy.reminderPlaceholder.finish} onPress={complete} />
-        ) : (
-          <>
-            <PagerDots
-              count={PAGES.length}
-              index={index}
-              accessibilityLabel={copy.pageOf(index + 1, PAGES.length)}
-            />
-            <PrimaryButton label={copy.next} onPress={() => goTo(index + 1)} />
-          </>
-        )}
-      </View>
+      {isReminderPage ? (
+        // For now both buttons just finish onboarding; scheduling comes in the notification ticket.
+        <View style={[styles.footer, styles.reminderFooter]}>
+          <PrimaryButton label={copy.reminder.turnOn} onPress={complete} />
+          <TextButton
+            label={copy.reminder.notNow}
+            color="textMuted"
+            onPress={complete}
+            style={styles.notNow}
+          />
+        </View>
+      ) : (
+        <View style={styles.footer}>
+          <PagerDots
+            count={pageCount}
+            index={index}
+            accessibilityLabel={copy.pageOf(index + 1, pageCount)}
+          />
+          <PrimaryButton label={copy.next} onPress={() => goTo(index + 1)} />
+        </View>
+      )}
     </SafeAreaView>
   );
 }
@@ -130,5 +148,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: layout.screenPaddingHorizontal,
     paddingTop: spacing[4],
     paddingBottom: spacing[2],
+  },
+  reminderFooter: {
+    gap: spacing[3],
+  },
+  notNow: {
+    alignSelf: 'center',
   },
 });

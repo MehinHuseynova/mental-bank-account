@@ -45,10 +45,13 @@ export const onboardingCopy = {
     missedNote: 'nothing deposited that day.',
   },
 
-  // Temporary: the reminder ticket builds the real page 4.
-  reminderPlaceholder: {
+  reminder: {
     title: 'Your evening reminder',
-    body: 'Placeholder: the reminder time picker comes in the next ticket.',
-    finish: 'Finish',
+    body: "Pick a time just before you go to bed. We'll remind you once a night to make your deposit.",
+    // The picked time (bold) goes between these two parts.
+    summaryStart: 'Every night at ',
+    summaryEnd: '. The reminder stays on your Lock Screen until you make your deposit.',
+    turnOn: 'Turn on reminder',
+    notNow: 'Not now',
   },
 } as const;
