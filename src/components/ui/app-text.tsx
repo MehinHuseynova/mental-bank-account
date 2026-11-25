@@ -15,6 +15,9 @@ const defaultColor: Record<TextVariant, ColorToken> = {
   cardText: 'textMuted',
   button: 'onPrimary',
   timeDigits: 'textPrimary',
+  tileLetter: 'textPrimary',
+  label: 'textSecondary',
+  caption: 'primary',
 };
 
 /** The only text component screens should use, so every text uses the theme's type scale. */

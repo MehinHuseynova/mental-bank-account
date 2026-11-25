@@ -17,7 +17,7 @@ export const fonts = {
  */
 export const textStyles = {
   title: { fontFamily: fonts.extraBold, fontSize: 34, lineHeight: 40 },
-  body: { fontFamily: fonts.regular, fontSize: 17, lineHeight: 24 },
+  body: { fontFamily: fonts.regular, fontSize: 17, lineHeight: 26 },
   eyebrow: {
     fontFamily: fonts.bold,
     fontSize: 14,
@@ -29,6 +29,12 @@ export const textStyles = {
   cardText: { fontFamily: fonts.regular, fontSize: 15, lineHeight: 21 },
   button: { fontFamily: fonts.bold, fontSize: 17, lineHeight: 22 },
   timeDigits: { fontFamily: fonts.extraBold, fontSize: 40, lineHeight: 48 },
+  /** The E / S / P letter inside a tile. */
+  tileLetter: { fontFamily: fonts.extraBold, fontSize: 24, lineHeight: 28 },
+  /** Short bold labels, e.g. weekday names. */
+  label: { fontFamily: fonts.bold, fontSize: 14, lineHeight: 18 },
+  /** Tiny bold text, e.g. "Today" inside a day circle. */
+  caption: { fontFamily: fonts.bold, fontSize: 11, lineHeight: 14 },
 } as const satisfies Record<string, TextStyle>;
 
 export type TextVariant = keyof typeof textStyles;

@@ -17,7 +17,11 @@ const light = {
 
   dotInactive: '#C5D0CB',
   illustrationBg: '#E8EEE9',
+  /** Brain illustration (values from design/Onboarding/assets/brain-lights.svg). */
+  illustrationFill: '#FBFCFA',
   coin: '#E0A630',
+  coinHalo: '#F7E2A6',
+  coinEmpty: '#B5C2BD',
 
   dayEmpty: '#E9EDEA',
   dayMissed: '#A9B6B1',
